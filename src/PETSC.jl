@@ -645,6 +645,8 @@ Base.unsafe_convert(::Type{Ptr{Cvoid}},v::PC) = v.ptr
 @wrapper(:KSPSetInitialGuessNonzero,PetscErrorCode,(KSP,PetscBool),(ksp,flg),"https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/KSP/KSPSetInitialGuessNonzero.html")
 @wrapper(:KSPSetType,PetscErrorCode,(KSP,KSPType),(ksp,typ),"https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/KSP/KSPSetType.html")
 @wrapper(:KSPGetPC,PetscErrorCode,(KSP,Ptr{PC}),(ksp,pc),"https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/KSP/KSPGetPC.html")
+@wrapper(:KSPGetTolerances, PetscErrorCode, (KSP, Ref{PetscReal}, Ref{PetscReal}, Ref{PetscReal}, Ref{PetscInt}), (ksp, rtol, atol, dtol, maxit),"https://petsc.org/release/manualpages/KSP/KSPGetTolerances/")
+
 
 @wrapper(:PCSetType,PetscErrorCode,(PC,PCType),(pc,typ),"https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/PC/PCSetType.html")
 @wrapper(:PCView,PetscErrorCode,(PC,PetscViewer),(pc,viewer),"https://www.mcs.anl.gov/petsc/petsc-current/docs/manualpages/PC/PCView.html")
@@ -732,7 +734,9 @@ end
 @wrapper(:SNESGetLinearSolveFailures,PetscErrorCode,(SNES,Ptr{PetscInt}),(snes,nfails),"https://petsc.org/release/docs/manualpages/SNES/SNESGetLinearSolveFailures.html")
 @wrapper(:SNESSetConvergenceTest,PetscErrorCode,(SNES,Ptr{Cvoid},Ptr{Cvoid},Ptr{Cvoid}),(snes,convtest,cctx,destroy),"https://petsc.org/release/manualpages/SNES/SNESSetConvergenceTest/")
 @wrapper(:SNESConvergedDefault,PetscErrorCode,(SNES,PetscInt,PetscReal,PetscReal,PetscReal,Ptr{SNESConvergedReason},Ptr{Cvoid}),(snes,it,xnorm,gnorm,f,reason,user),"https://petsc.org/release/manualpages/SNES/SNESConvergedDefault/")
-
+@wrapper(:SNESSetTolerances, PetscErrorCode, (SNES, PetscReal, PetscReal, PetscReal, PetscInt, PetscInt), (snes, atol, rtol, stol, maxit, maxf),"https://petsc.org/release/manualpages/SNES/SNESGetTolerances/")
+@wrapper(:SNESGetConvergedReason, PetscErrorCode, (SNES, Ref{PetscInt}), (snes, reason),"https://petsc.org/release/manualpages/SNES/SNESGetConvergedReason/")
+@wrapper(:SNESGetConvergedReasonString, PetscErrorCode, (SNES, Ref{Cstring}), (snes, strreason),"https://petsc.org/release/manualpages/SNES/SNESGetConvergedReasonString/")
 
 # Garbage collection of PETSc objects
 @wrapper(:PetscObjectRegisterDestroy,PetscErrorCode,(Ptr{Cvoid},),(obj,),"https://petsc.org/release/docs/manualpages/Sys/PetscObjectRegisterDestroy.html")
